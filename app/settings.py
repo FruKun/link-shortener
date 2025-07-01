@@ -22,6 +22,7 @@ class Config:
         else f"sqlite:///{DATABASE_NAME}"
     )
     DEBUG = getenv("DEBUG", True)
+    DOMAIN_URL = getenv("DOMAIN_URL", "127.0.0.1:5000")
     SYMBOLS = [
         "a",
         "b",
