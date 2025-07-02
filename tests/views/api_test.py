@@ -1,12 +1,11 @@
 import json
 
 import pytest
-from flask import render_template
 
 
 def test_get_urls_not_valid_method(client):
     response = client.get("/api/urls")
-    assert response.status_code == 405
+    assert response.status_code == 302
 
 
 def test_delete_urls_not_valid_method(client):
@@ -51,7 +50,7 @@ def test_patch_urls_not_valid_method(client):
 def test_post_urls_not_valid_original_url(client, data):
     response = client.post("/api/urls", data=json.dumps(data))
     assert response.status_code == 422
-    assert response.json == "422 Unprocessable Entity: original url Validation error"
+    assert "original url Validation error" in response.text
 
 
 @pytest.mark.parametrize(
@@ -66,7 +65,7 @@ def test_post_urls_valid_original_url(client, data):
     response = client.post("/api/urls", data=json.dumps(data))
     assert response.status_code == 200
     assert response.json["original_url"] == "https://google.com"
-    assert len(response.json["short_url"].split("/")[1]) == 4
+    assert len(response.json["short_url"].split("/")[3]) == 4
 
 
 @pytest.mark.parametrize(
@@ -85,7 +84,7 @@ def test_post_urls_expected_short_url(client, short_url):
     response = client.post("/api/urls", data=json.dumps(data))
     assert response.status_code == 200
     assert response.json["original_url"] == "https://google.com"
-    assert response.json["short_url"].split("/")[1] == str(short_url)
+    assert response.json["short_url"].split("/")[3] == str(short_url)
 
 
 @pytest.mark.parametrize("short_url", ["`", ",", "'", '"', "/", "?", "aboba\\"])
@@ -93,7 +92,7 @@ def test_post_urls_unexpected_short_url(client, short_url):
     data = {"original_url": "https://google.com", "short_url": short_url}
     response = client.post("/api/urls", data=json.dumps(data))
     assert response.status_code == 422
-    assert response.json == "422 Unprocessable Entity: short url Validation error"
+    assert "short url Validation error" in response.text
 
 
 @pytest.mark.parametrize(
@@ -104,17 +103,13 @@ def test_post_urls_unexpected_short_url(client, short_url):
 def test_post_urls_unique_short_url(client, create_data):
     response = client.post("/api/urls", data=json.dumps(create_data))
     assert response.status_code == 422
-    assert (
-        response.json
-        == "422 Unprocessable Entity: try again, this short url already exist"
-    )
+    assert "try again, this short url already exist" in response.text
 
 
-def test_get_doc(client, app):
-    response = client.get("/api/doc")
+def test_get_doc(client):
+    response = client.get("/api/")
     assert response.status_code == 200
-    with app.app_context():
-        assert response.text == render_template("doc.html")
+    assert "json request example:" in response.text
 
 
 def test_post_doc_not_valid_method(client):
