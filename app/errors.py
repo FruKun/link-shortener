@@ -1,6 +1,11 @@
-class ValidationError(Exception):
-    pass
+from werkzeug.exceptions import HTTPException
 
 
-class IntegrityError(Exception):
-    pass
+class ValidationError(HTTPException):
+    code = 422
+    description = "Validation error try again"
+
+
+class IntegrityError(HTTPException):
+    code = 422
+    description = "database error try again"

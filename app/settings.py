@@ -91,3 +91,10 @@ class Config:
         ".",
         "~",
     ]
+
+
+class TestConfig(Config):
+    DATABASE_NAME = ":memory:"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{DATABASE_NAME}"
+    DOMAIN_URL = "127.0.0.1:5000"
+    TESTING = True

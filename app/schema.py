@@ -2,12 +2,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
-from app.database import database
-from app.model import Url
 from app.service import validate_original_url, validate_short_url
-from app.settings import Config
-
-from . import errors
 
 
 class Url_pydantic(BaseModel):

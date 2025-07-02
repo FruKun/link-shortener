@@ -1,11 +1,11 @@
 import logging
 
-from flask import Blueprint, render_template, request
-from pydantic import ValidationError
+import pydantic
+import validators
+from flask import Blueprint, abort, render_template, request
 from sqlalchemy.exc import IntegrityError
 
-from app import errors
-from app.database import database
+from app import database, errors
 from app.model import Url
 from app.schema import Url_pydantic
 from app.settings import Config
@@ -21,29 +21,21 @@ def create_url():
             Url(**{"original_url": str(url.original_url), "short_url": url.short_url})
         )
         database.session.commit()
+        logging.info("save {}", url.short_url)
         url.short_url = Config.DOMAIN_URL + "/" + url.short_url
-        responce = url.dict()
-    except ValidationError as e:
-        # 422
-        logging.error(e)
-        responce = "original url Validation error"
-    except errors.ValidationError:
-        # 422
-        logging.error("errors.ValidationError: short url Validation error")
-        responce = "short url Validation error"
-    except IntegrityError as e:
-        # 422
-        logging.error(e)
-        responce = "try again, this short url already exist"
-    except errors.IntegrityError as e:
-        # 422
-        logging.error("errors.IntegrityError: dont unique value")
-        responce = "try again, this short url already exist"
-    except Exception as e:
-        # 400
-        logging.error(e)
-        responce = "big error"
-    return responce
+        return url.model_dump()
+    except (pydantic.ValidationError, validators.ValidationError) as e:
+        logging.warning(e)
+        abort(422, description="original url Validation error")
+    except (IntegrityError, errors.IntegrityError) as e:
+        logging.warning(e)
+        abort(422, description="try again, this short url already exist")
+    except errors.ValidationError as e:
+        logging.warning(e)
+        abort(422, description="short url Validation error")
+    # except Exception as e:
+    #     logging.error(e)
+    #     abort(400, description="big error")
 
 
 @api.route("/doc", methods=["GET"])
