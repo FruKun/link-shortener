@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div class="">
+    <h1 class="">Сократите свою ссылку</h1>
+    <h2 style="color:red;"">{{error}}</h2>
+    <form action=" {{url_for('web.index')}}" method="POST" class="">
+        <div class="">
+            <input type="text" name="original_url" placeholder="Введите URL" class="" /><br>
+            <label for="short_url">обязательное поле</label><br>
+            <input type="text" name="short_url" placeholder="введите ключ" class="" /><br>
+            <label for="short_url">необязательное поле</label><br>
+            <button type="submit" class="">
+                Сократить
+            </button>
+        </div>
+        </form>
+
+</div>
+{% endblock %}

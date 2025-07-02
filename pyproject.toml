@@ -12,7 +12,8 @@ dependencies = [
     "flask-sqlalchemy (>=3.1.1,<4.0.0)",
     "python-dotenv (>=1.1.1,<2.0.0)",
     "pydantic (>=2.11.7,<3.0.0)",
-    "validators (>=0.35.0,<0.36.0)"
+    "validators (>=0.35.0,<0.36.0)",
+    "requests (>=2.32.4,<3.0.0)"
 ]
 
 

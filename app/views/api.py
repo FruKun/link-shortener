@@ -2,7 +2,7 @@ import logging
 
 import pydantic
 import validators
-from flask import Blueprint, abort, render_template, request
+from flask import Blueprint, abort, redirect, render_template, request
 from sqlalchemy.exc import IntegrityError
 
 from app import database, errors
@@ -33,11 +33,16 @@ def create_url():
     except errors.ValidationError as e:
         logging.warning(e)
         abort(422, description="short url Validation error")
-    # except Exception as e:
-    #     logging.error(e)
-    #     abort(400, description="big error")
+    except Exception as e:
+        logging.error(e)
+        abort(400, description="big error")
 
 
-@api.route("/doc", methods=["GET"])
+@api.route("/", methods=["GET"])
 def get_doc_url():
-    return render_template("doc.html")
+    return render_template("modules/doc.html")
+
+
+@api.route("/<url>")
+def redirect_index(url):
+    return redirect("/")

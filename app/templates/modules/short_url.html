@@ -1,0 +1,4 @@
+{% extends "base.html" %} {% block content %}
+<p>original url: <a href={{response["original_url"]}}>{{response["original_url"]}}</a></p>
+<p>short url: <a href={{response["short_url"]}}>{{response["short_url"]}} </a></p>
+{%endblock%}
