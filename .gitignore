@@ -5,3 +5,4 @@ __pycache__
 .pytest*
 instance
 .coverage
+.python-version

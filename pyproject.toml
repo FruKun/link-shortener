@@ -27,6 +27,10 @@ pytest = "^8.4.1"
 pytest-xdist = "^3.7.0"
 pytest-cov = "^6.2.1"
 
+
+[tool.poetry.group.postgres.dependencies]
+psycopg = {extras = ["binary"], version = "^3.2.9"}
+
 [tool.pytest.ini_options]
 addopts = ['-n', 'auto', '-ra']
 pythonpath = "."

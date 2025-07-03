@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:17.5
+    # env_file:
+    #   - .env
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  flask:
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      DATABASE: postgresql+psycopg
+      DATABASE_NAME: postgres
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+    # env_file:
+    #   - .env
+    command: bash -c "waitress-serve --host 0.0.0.0 --port 5000 --call app:create_app"
+volumes:
+  postgres:
