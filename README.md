@@ -19,15 +19,20 @@ powershell
 Invoke-Expression (poetry env activate)
 ```
 ### 4. запуск 
-1. flask development server 
+flask development server 
 ```bash
 flask run --host 127.0.0.1 --port 5000
 ```
-2. запуск wsgi сервера
+запуск wsgi сервера
 ```bash
 waitress-serve --host 127.0.0.1 --port 5000 --call app:create_app
 ``` 
 ## Docker
+### создание .env файла обязательно с аргументами указанными в env.example
+```bash
+cp env.example .env
+```
+### запуск контейнеров
 ```bash
 docker compose up
 ```
@@ -46,7 +51,7 @@ curl 127.0.0.1:5000/api/urls -Method Post -ContentType application/json -Body '{
 ## pytest local
 ### poetry
 ```bash
-poetry install --no-interaction --no-cache --no-root --no-directory --with dev
+poetry install --no-interaction --no-cache --no-root --no-directory --with dev --without postgres
 ```
 ### pytest
 ```bash
