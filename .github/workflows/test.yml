@@ -24,7 +24,7 @@ jobs:
     - name: pytest and coverage
       run: |
         pytest -n auto --cov=app
-        coverage-badge -o coverage.svg
+        coverage-badge -fo coverage.svg
     - uses: stefanzweifel/git-auto-commit-action@v6
       with:
         commit_message: generate coverage.svg
