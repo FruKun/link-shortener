@@ -42,6 +42,7 @@ docker compose up
 docker compose down -v #очистится volume
 ```
 ## пример обращения к апи
+bash
 ```bash
 curl -X POST -H "content-type: application/json" -d '{"original_url": "https://google.com", "short_url":"aboba"}' 127.0.0.1:5000/api/urls
 ```
