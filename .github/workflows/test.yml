@@ -8,6 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - name: set up python
       uses: actions/setup-python@v3
       with:
@@ -20,4 +21,4 @@ jobs:
         poetry install --no-interaction --no-cache --no-root --no-directory --without dev --with postgres
     - name: pytest and coverage
       run: |
-        pytest --cov-report json --cov=app
+        pytest -n auto --cov=app

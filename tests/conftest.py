@@ -5,7 +5,7 @@ from app.model import Url
 from app.settings import TestConfig
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def app():
     app = create_app(TestConfig)
 
