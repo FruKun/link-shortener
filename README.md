@@ -1,5 +1,5 @@
 # Link shortener
-![Coverage](https://raw.githubusercontent.com.FruKun/link-shortener/master/coverage.svg)  
+![Coverage](https://raw.githubusercontent.com/FruKun/link-shortener/master/coverage.svg)  
 [source](https://github.com/avito-tech/auto-backend-trainee-assignment) 
 ## локальный запуск
 ### 1. создание .env файл при необходимости переопределения Config
