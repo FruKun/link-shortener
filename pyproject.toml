@@ -26,6 +26,7 @@ build-backend = "poetry.core.masonry.api"
 pytest = "^8.4.1"
 pytest-xdist = "^3.7.0"
 pytest-cov = "^6.2.1"
+coverage-badge = "^1.1.2"
 
 
 [tool.poetry.group.postgres.dependencies]
