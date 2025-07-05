@@ -1,0 +1,44 @@
+openapi: "3.1.1"
+info:
+  title: link shortener
+  version: "1"
+servers:
+  - url: http://localhost:5000/api
+paths:
+  /urls:
+    post:
+      summary: create new short url
+      requestBody:
+        description: data for new url
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Urls_create"
+      responses:
+        "200":
+          description: successful created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Urls_response"
+        "422":
+          description: validation/integrity error
+
+components:
+  schemas:
+    Urls_create:
+      type: object
+      properties:
+        original_url:
+          type: "string"
+          example: https://google.com
+    Urls_response:
+      type: object
+      properties:
+        original_url:
+          type: "string"
+          example: https://google.com
+        short_url:
+          type: "string"
+          example: http://127.0.0.1/aboba

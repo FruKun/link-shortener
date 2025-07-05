@@ -37,6 +37,14 @@ cp env.example .env
 ```bash
 docker compose up
 ```
+главная страница откроется на
+```url
+http://127.0.0.1:5000/
+```
+swagger ui
+```url
+http://127.0.0.1:8080/
+```
 если появляется ошибка связанная с пользователем, паролем или именем базы данных [link to issue](https://github.com/docker-library/postgres/issues/203#issuecomment-255200501)
 ```bash
 docker compose down -v #очистится volume
@@ -49,18 +57,4 @@ curl -X POST -H "content-type: application/json" -d '{"original_url": "https://g
 powershell
 ```powershell
 curl 127.0.0.1:5000/api/urls -Method Post -ContentType application/json -Body '{"original_url": "https://google.com", "short_url":"aboba"}'
-```
-## pytest local
-### poetry
-```bash
-poetry install --no-interaction --no-cache --no-root --no-directory --with dev --without postgres
-```
-### pytest
-```bash
-pytest
-```
-### pytest-cov
-```bash
-pytest --cov-report html --cov=app # результат в html
-pytest --cov=app # результат в терминал
 ```

@@ -104,29 +104,3 @@ def test_post_urls_unique_short_url(client, create_data):
     response = client.post("/api/urls", data=json.dumps(create_data))
     assert response.status_code == 422
     assert "try again, this short url already exist" in response.text
-
-
-def test_get_doc(client):
-    response = client.get("/api/")
-    assert response.status_code == 200
-    assert "json request example:" in response.text
-
-
-def test_post_doc_not_valid_method(client):
-    response = client.post("/api/doc")
-    assert response.status_code == 405
-
-
-def test_delete_doc_not_valid_method(client):
-    response = client.delete("/api/doc")
-    assert response.status_code == 405
-
-
-def test_put_doc_not_valid_method(client):
-    response = client.put("/api/doc")
-    assert response.status_code == 405
-
-
-def test_patch_doc_not_valid_method(client):
-    response = client.patch("/api/doc")
-    assert response.status_code == 405

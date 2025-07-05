@@ -7,5 +7,5 @@ class ValidationError(HTTPException):
 
 
 class IntegrityError(HTTPException):
-    code = 422
+    code = 500
     description = "database error try again"

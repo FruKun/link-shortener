@@ -20,7 +20,7 @@ def index():
         if response.status_code == 200:
             return render_template("modules/short_url.html", response=response.json())
         else:
-            return response.text
+            return response.text, response.status_code
 
     return render_template("modules/index.html")
 

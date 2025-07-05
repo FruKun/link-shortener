@@ -13,6 +13,7 @@ def generate_short_url(symbols: list[str] = Config.SYMBOLS, length: int = 4) -> 
     new_url = ""
     for length in range(length, 120):
         flag = False
+        # чтобы сильно не увеличивать время запроса при большом заполнении бд
         for j in range(0, 10):
             new_url = "".join(random.choices(symbols, k=length))
             if Url.query.filter_by(short_url=new_url).count() != 0:

@@ -38,11 +38,6 @@ def create_url():
         abort(400, description="big error")
 
 
-@api.route("/", methods=["GET"])
-def get_doc_url():
-    return render_template("modules/doc.html")
-
-
 @api.route("/<url>")
 def redirect_index(url):
     return redirect("/")
